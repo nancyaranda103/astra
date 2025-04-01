@@ -12,29 +12,31 @@ const SignIn = () => {
   const [signInWithEmailAndPassword, loading, error] = useSignInWithEmailAndPassword(auth);
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState('');
-  const [userLoggedIn, setUserLoggedIn] = useState(false); // Add this state
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setErrorMessage(''); // Clear previous error messages
+    setErrorMessage('');
     try {
       const res = await signInWithEmailAndPassword(email, password);
       if (res.user) {
         console.log({ res });
-        setUserLoggedIn(true); // Stores user session in a cookie
+        setUserLoggedIn(true);
         setEmail('');
         setPassword('');
         router.push('/dashboard');
       }
     } catch (e) {
       console.error(e);
-      setErrorMessage(e.message); // Display error message
+      setErrorMessage(e.message);
     }
   };
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && userLoggedIn) {
-      document.cookie = "user=true; path=/";
+    if (typeof window !== 'undefined') {
+      if (userLoggedIn) {
+        document.cookie = "user=true; path=/";
+      }
     }
   }, [userLoggedIn]);
 
@@ -44,8 +46,6 @@ const SignIn = () => {
   };
 
   return (
-
-
     <section className='bg-gray-50 min-h-screen flex items-center
     justify-center  '>
       <div className=" bg-gray-100 flex rounded-2xl shadow-lg 
