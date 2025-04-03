@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase';
 import { useRouter } from 'next/navigation';
-import 'boxicons';
+
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
